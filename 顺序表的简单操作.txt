@@ -1,0 +1,114 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<assert.h>
+int newcapacity;
+typedef int SLDatatype;
+typedef struct Seplist
+{
+	SLDatatype* arr;
+	int size;
+	int capacity;
+}SL;
+void SLInit(SL* ps)//初始化
+{
+	ps->arr = NULL;//(SLDatatype*)malloc(10*sizeof(int));NULL
+	ps->size = ps->capacity = 0;
+}
+void SLDestroy(SL* ps)//销毁
+{
+	if (ps->arr)
+	{
+		free(ps->arr);
+		ps->arr = NULL;
+		ps->size = ps->capacity = 0;
+	}
+}
+void SLCheckcapacity(SL* ps)//空间操作
+{
+	if (ps->capacity == ps->size)
+	{
+		newcapacity = ps->capacity == 0 ? 4 : 2 * ps->capacity;
+		SLDatatype* tmp = (SLDatatype*)realloc(ps->arr, newcapacity * sizeof(int));
+		if (tmp == NULL)
+		{
+			perror("realloc fail!");
+			exit(1);
+		}
+		ps->arr = tmp;
+		ps->capacity = newcapacity;
+	}
+}
+void SLPushback(SL* ps, SLDatatype x)//尾插
+{
+	SLCheckcapacity(ps);
+	ps->arr[ps->size++] = x;
+}
+void SLPushfront(SL* ps,SLDatatype x)//头插
+{
+	assert(ps);
+	SLCheckcapacity(ps);
+	for (int i = ps->size; i > 0; i--)
+		ps->arr[i] = ps->arr[i - 1];
+	ps->arr[0] = x;
+	ps->size++;
+}
+void SLPopback(SL* ps)//尾删
+{
+	assert(ps);
+	assert(ps->size);
+	ps->size--;
+}
+void SLPopfront(SL* ps)//头删
+{
+	assert(ps);
+	assert(ps->size);
+	for (int i = 0; i <ps->size-1 ; i++)
+		ps->arr[i] = ps->arr[i + 1];
+	ps->size--;
+}
+void SLpushback(SL* ps, int pos, SLDatatype x)//指定位置之前插入
+{
+	assert(ps);
+	assert(pos >= 0 && pos <= ps->size);
+	SLCheckcapacity(ps);
+	for (int i = ps->size; i > pos; i--)
+		ps->arr[i]= ps->arr[i - 1];
+	ps->arr[pos] = x;
+	ps->size++;
+}
+void SLerase(SL* ps, int pos)
+{
+	assert(ps);
+	assert(pos >= 0 && pos < ps->size);
+	for (int i = pos; i < ps->size - 1; i++)
+		ps->arr[i] = ps->arr[i + 1];
+	ps->size--;
+}
+void SLprint(SL* ps)//打印
+{
+	for (int i = 0; i < ps->size; i++)
+		printf("%d ", ps->arr[i]);
+}
+void SLTest01()
+{
+	SL sl;
+	SLInit(&sl);
+	SLPushback(&sl,1);
+	SLPushback(&sl, 2);
+	SLPushback(&sl, 3);
+	SLPushback(&sl, 4);
+	SLPushback(&sl, 5);
+	SLPushfront(&sl, 6);
+	SLPopback(&sl);
+	SLPopfront(&sl);
+	SLpushback(&sl, 2, 0);
+	SLerase(&sl,3);
+	SLprint(&sl);
+	SLDestroy(&sl);
+}
+int main()
+{
+	
+	SLTest01();
+	return 0;
+}
