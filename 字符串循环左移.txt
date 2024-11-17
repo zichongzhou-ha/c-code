@@ -1,0 +1,22 @@
+输入一个字符串和一个非负整数N，要求将字符串循环左移N次。
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char arr1[200];
+    char arr2[200];
+    gets(arr1);
+    int n;
+    int d = strlen(arr1);
+    scanf("%d", &n);
+    n %= d;
+    for (int i = 0; i < n; i++)//0-n-1
+    {
+        arr2[d - n + i] = arr1[i];
+    }
+    for (int i = n; i < d; i++)//n-d-1
+        arr2[i-n] = arr1[i];
+    for (int i = 0; i < d; i++)
+        printf("%c", arr2[i]);
+    return 0;
+}

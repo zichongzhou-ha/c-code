@@ -1,0 +1,17 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[20];
+	scanf("%s", arr);
+	int d = strlen(arr);
+	
+	for (int i = 0; i < d / 2; i++)
+	{
+		int tmp = arr[i];
+		arr[i] = arr[d-i-1];
+		arr[d-i-1] = tmp;
+	}
+	printf("%s", arr);
+	return 0;
+}

@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include<string.h>
+int main() {
+    int N, K;
+    scanf("%d %d", &N, &K); 
+
+    char arr[201][101]; 
+    char arr1[201];
+
+    for (int i = 0; i < N; i++) {
+        scanf("%s", arr[i]); 
+    }
+    for(int i=0;i<K;i++)
+        for(int j=0;j<N-1-i;j++)
+        {
+            if(strcmp(arr[j],arr[j+1])>0)
+            {
+                strcpy(arr1,arr[j]);
+                strcpy(arr[j],arr[j+1]);
+                strcpy(arr[j+1],arr1);
+            }
+        }
+    for(int i=0;i<N;i++)
+        puts(arr[i]);
+    
+
+    return 0;
+}
