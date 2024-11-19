@@ -1,0 +1,30 @@
+int main()
+{
+	int n, k;
+	scanf("%d %d", &n, &k);
+	int arr[100];
+	int arr1[100];
+	for (int i = 0; i < n; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	int j = 0;
+	for (int i = n - k; i < n; i++)
+	{
+		arr1[j] = arr[i];
+		j++;
+	}
+	for (int i = 0; i < n - k; i++)
+	{
+		arr1[j] = arr[i];
+			j++;
+	}
+	for (int i = 0; i < n; i++)
+		printf("%d", arr1[i]);
+	return 0;
+}
+
+
+
+
+空间换时间

@@ -1,0 +1,20 @@
+int main()
+{
+	int arr[10];//存储0-10；中有一个元素缺失
+	for (int i = 0; i < 10; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	int x = 0;
+	for (int i = 0; i <= 10; i++)
+		x ^= i;
+	for (int i = 0; i < 10; i++)
+		x ^= arr[i];
+	printf("%d", x);
+	return 0;
+}
+
+
+异或满足交换率
+0与任何数异或都为该数
+数与本身异或为0；
