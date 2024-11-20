@@ -1,0 +1,32 @@
+void daozhi(int* p, int left,int right)//实现倒置的函数
+{
+	while (left < right)
+	{
+		int tmp = p[left];
+		p[left] = p[right];
+		p[right] = tmp;
+		left++;
+		right--;
+	}
+}
+
+int main()
+{
+	int n,m;//旋转次数,总数
+	scanf("%d %d", &n,&m);
+	int arr[10];
+	for (int i = 0; i < m; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	daozhi(arr, 0, m - n-1);
+	daozhi(arr + n + 1, m - n, m - 1);
+	daozhi(arr, 0, m - 1);
+	for (int i = 0; i < m; i++)
+		printf("%d ", arr[i]);
+	return 0;
+}
+
+
+
+最优解
