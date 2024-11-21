@@ -1,0 +1,21 @@
+int main()
+{
+	int n, m,k;
+	scanf("%d %d", &n, &m);
+	if (n < m)
+	{
+		int tmp = n;
+		n = m;
+		m = tmp;
+	}
+	int a = n;
+	int b = m;
+	while (m != 0)
+	{
+		k = n % m;
+		n = m;
+		m = k;
+	}
+	printf("%d", a * b / n);
+	return 0;
+}
