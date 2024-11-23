@@ -1,0 +1,146 @@
+typedef int zheng;
+struct haha
+{
+	zheng* x;
+	struct haha* next;
+};
+typedef struct haha slt;
+void print(slt* sl)
+{
+	slt* test = sl;
+	while (test != NULL)
+	{
+		printf("%d->", test->x);
+		test = test->next;
+	}
+	printf("NULL");
+	printf("\n");
+}
+slt* creat(zheng a)
+{
+	slt* new = (slt*)malloc(sizeof(slt));
+	new->x = a;
+	new->next = NULL;
+	return new;
+}
+void pushback(slt** sl, zheng a)
+{
+	slt* new = creat(a);
+	if (*sl == NULL)
+	{
+		*sl = new;
+	}
+	else
+	{
+		slt* tail = *sl;
+		while (tail->next != NULL)
+		{
+			tail = tail->next;
+		}
+		tail->next = new;
+	}
+}
+void pushfront(slt** sl, zheng a)
+{
+	slt* new = creat(a);
+	new->next =*sl;
+	*sl = new;
+}
+void popfront(slt** sl)
+{
+	slt* new = (*sl)->next;
+	free(*sl);
+	*sl = new;
+}
+void popback(slt** sl)
+{
+	if ((*sl) == NULL)
+		return;
+	else if ((*sl)->next==NULL)
+	{
+		free(*sl);
+		*sl = NULL;
+	}
+	else {
+		slt* p = *sl;
+		slt* k = NULL;
+		while (p->next != NULL)
+		{
+			k = p;
+			p = p->next;
+		}
+		free(p);
+		k->next = NULL;
+	}
+}
+slt* find(slt** sl, zheng a)
+{
+	slt* k = *sl;
+	while (k != NULL)
+	{
+		if (k->x == a)
+			return k;
+		k = k->next;
+	}
+	return NULL;
+}
+void insert(slt** front, slt* k, zheng a)
+{
+	if (k == (*front))
+		pushfront(front, a);
+	else
+	{
+		slt* test = (*front);
+		while (test->next != k)
+		{
+			test = test->next;
+		}
+		slt* y = creat(a);
+	    test->next=y;
+		y->next = k;
+	}
+}
+void delete(slt** sl, slt *k)
+{
+	if ((*sl) == k)
+	{
+		popback(sl);
+	}
+	else
+	{
+		slt* m = *sl;
+		while (m->next != k)
+		{
+			m = m->next;
+		}
+		m->next = k->next;
+		free(k);
+		k = NULL;
+	}
+}
+int main()
+{
+	slt* front = NULL;
+	pushback(&front, 6);
+	pushback(&front, 6);
+	pushfront(&front, 5);
+	pushfront(&front, 5);
+	pushback(&front, 4);
+	pushback(&front, 3);
+	popfront(&front);
+	popback(&front);
+	print(front);
+	slt* q = find(&front, 4);
+	if (q)
+	{
+		delete(&front, q);
+	}
+	print(front);
+	slt* p = find(&front, 5);
+	if (p)
+	{
+		insert(&front, p, 0);
+	}
+	print(front);
+	return 0;
+}

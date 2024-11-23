@@ -1,0 +1,30 @@
+#include<stdio.h>
+
+int main()
+{
+    int a,b,c,d;
+    scanf("%d/%d %d/%d",&a,&b,&c,&d);
+    int k=b*d;//存分母
+    int q=a*d+c*b;//存分子
+    int m=k;
+    int n=q;
+    if(k<q)
+    {
+        int tmp=k;
+        k=q;
+        q=tmp;
+    }
+    while(q!=0)
+    {
+        int z=k%q;
+        k=q;
+        q=z;
+    }
+    m/=k;
+    n/=k;
+    if(n%m==0)
+        printf("%d",n);
+    else
+        printf("%d/%d",n,m);
+    return 0;
+}
