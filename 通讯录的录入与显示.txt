@@ -1,0 +1,39 @@
+#include<stdio.h>
+struct haha
+{
+    char name[20];
+    char birth[20];
+    char sex[20];
+    char guhua[29];
+    char hua[20];
+};
+typedef struct haha slt;
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    slt arr[20];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%s %s %s %s %s",&arr[i].name,&arr[i].birth,&arr[i].sex,&arr[i].guhua,&arr[i].hua);
+    }
+    int k;
+    int att[20];
+    scanf("%d",&k);
+    for(int i=0;i<k;i++)
+    {
+        scanf("%d",&att[i]);
+    }
+    for(int i=0;i<k;i++)
+    {
+        int f=att[i];
+        if(att[i]>=0&&att[i]<n)
+            printf("%s %s %s %s %s",arr[f].name,arr[f].guhua,arr[f].hua,arr[f].sex,arr[f].birth);
+        else
+            printf("Not Found");
+        if(i!=k-1)
+            printf("\n");
+    };
+    
+    return 0;
+}
