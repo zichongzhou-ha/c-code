@@ -1,0 +1,35 @@
+给定某数字A（1≤A≤9）以及非负整数N（0≤N≤100000），求数列之和S=A+AA+AAA+⋯+AA⋯A（N个A）。例如A=1, N=3时，S=1+11+111=123。
+
+#include<stdio.h>
+int main()
+{
+    int a,n;
+    int t = 0;
+    int i = 0;
+    int arr[1000001]={0};
+    scanf("%d %d", &a, &n);
+    if (n == 0)
+    {
+        printf("0");
+        return 0;
+    }
+    else
+    {
+        while (n > 0)
+        {
+            int k = a * n + t;
+            arr[i] = k % 10;
+            t = k / 10;
+            n--;
+            i++;
+        }
+        if (t)
+        {
+            arr[i] = t;
+            i++;//weishu
+        }
+        for (i = i - 1; i >= 0; i--)
+            printf("%d", arr[i]);
+    }
+    return 0;
+}
