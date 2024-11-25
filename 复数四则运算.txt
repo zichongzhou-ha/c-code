@@ -1,0 +1,41 @@
+#include<stdio.h>
+int main()
+{
+    double a1 = 0.0;
+    double b1 = 0.0;
+    double a2 = 0.0;
+    double b2 = 0.0;
+    scanf("%lf %lf %lf %lf", &a1, &b1, &a2, &b2);
+    char ch[10] = { '+','-', '*','/' };
+    double real[4] = { 0 };
+    double image[4] = { 0 };
+    real[0] = a1 + a2;
+    real[1] = a1 - a2;
+    real[2] = a1 * a2 - b1 * b2;
+    real[3] = (a1 * a2 + b1 * b2) / (a2*a2+b2*b2);
+    image[0] = b1 + b2;
+    image[1] = b1 - b2;
+    image[2] = a1 * b2 + a2 * b1;
+    image[3] = (a2 * b1 - a1 * b2) / (a2*a2+b2*b2);
+    int i = 0;
+    for (i = 0; i < 4; i++)
+    {
+        if (fabs(real[i]) < 0.05 && fabs(image[i]) < 0.05)
+        {
+            printf("(%.1f%+.1fi) %c (%.1f%+.1fi) = 0.0\n", a1, b1, ch[i], a2, b2);
+        }
+        else if (fabs(image[i]) < 0.05)
+        {
+            printf("(%.1f%+.1fi) %c (%.1f%+.1fi) = %.1f\n", a1, b1, ch[i], a2, b2,real[i]);
+        }
+        else if (fabs(real[i]) < 0.05)
+        {
+            printf("(%.1f%+.1fi) %c (%.1f%+.1fi) = %.1fi\n", a1, b1, ch[i], a2, b2, image[i]);
+        }
+        else
+        {
+            printf("(%.1f%+.1fi) %c (%.1f%+.1fi) = %.1f%+.1fi\n", a1, b1, ch[i], a2, b2, real[i],image[i]);
+        }
+    }
+    return 0;
+}
