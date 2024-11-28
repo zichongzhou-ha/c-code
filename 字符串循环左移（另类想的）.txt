@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<string.h>
+void exchange(char* p, int a)
+{
+    //char*head = p;
+    int tmp = *p;
+    int i = 0;
+    for (i = 0; i < a - 1; i++)
+    {
+        *(p + i) = *(p + i + 1);
+    }
+    *(p + i) = tmp;
+ 
+    
+}
+int main()
+{
+    char arr1[200];
+    gets(arr1);
+    int n;
+    int d = strlen(arr1);
+    scanf("%d", &n);
+    n %= d;
+    while (n)
+    {
+        exchange(&arr1[0], d);
+        n--;
+
+    }
+    for (int i = 0; i < d; i++)
+    {
+        printf("%c", arr1[i]);
+    }
+        return 0;
+    
+}
