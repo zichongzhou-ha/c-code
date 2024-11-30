@@ -1,0 +1,150 @@
+#include<stdio.h>
+typedef int zheng;
+struct haha
+{
+	zheng x;
+	struct haha* next;
+	struct haha* prev;
+};
+typedef struct haha slt;
+slt* creat(int a)
+{
+	slt* p = malloc(sizeof(slt));
+	p->x = a;
+	p->next = NULL;
+	p->prev = NULL;
+	return p;
+}
+slt* init()
+{
+	slt* head = creat(0);
+	head->next = head;
+	head->prev = head;
+	return head;
+}
+void destroy(slt* p)
+{
+	assert(p);
+	slt* test = p->next;
+	while (test != p)
+	{
+		slt*k = test->next;
+		free(test);
+		test = k;
+	}
+	free(p);
+	p = NULL;
+}
+void print(slt* p)
+{
+	assert(p);
+	slt*test = p->next;
+	while (test != p)
+	{
+		printf("%d ", test->x);
+		test = test->next;
+	}
+	printf("\n");
+}
+void pushback(slt* p, zheng a)
+{
+	assert(p);
+	slt* back = p->prev;
+	slt* new = creat(a);
+	back->next = new;
+	new->prev = back;
+	new->next = p;
+	p->prev = new;
+}
+void pushfront(slt* p, zheng a)
+{
+	assert(p);
+	slt* first = p->next;
+	slt* new = creat(a);
+	p->next = new;
+	new->next = first;
+	new->prev = p;
+	first->prev = new;
+}
+void popfront(slt* p)
+{
+	assert(p);
+	assert(p->next != p);
+	slt* first = p->next;
+	slt* second = first->next;
+	p->next = second;
+	second->prev = p;
+	free(first);
+	first == NULL;
+}
+void popback(slt* p)
+{
+	assert(p);
+	assert(p->prev != p);
+	slt* final1 = p->prev;
+	slt* final2 = final1->prev;
+	final2->next = p;
+	p->prev = final2;
+	free(final1);
+	final1 = NULL;
+}
+slt* find(slt* p,zheng a)
+{
+	assert(p);
+	slt* test = p->next;
+	while (test != NULL)
+	{
+		if (test->x == a)
+		{
+			return test;
+		}
+		test = test->next;
+	}
+	return NULL;
+}
+void insert(slt* p,zheng a)
+{
+	assert(p);
+	slt* q = p->prev;
+	slt* new = creat(a);
+	new->next = p;
+	new->prev = q;
+	p->prev = new;
+	q->next = new;
+}
+void delete(slt* p)
+{
+	slt* front = p->prev;
+	slt* back = p->next;
+	front->next = back;
+	back->prev = front;
+	free(p);
+	p = NULL;
+}
+int main()
+{
+	slt*sl=init();
+	pushback(sl, 6);
+	pushback(sl, 5);
+	pushfront(sl, 4);
+	pushfront(sl, 3);
+	print(sl);
+	popfront(sl);
+	print(sl);
+	popback(sl);
+	print(sl);
+	slt* k = find(sl, 6);
+	if (k)
+	{
+		insert(k, 9);
+	}
+	print(sl);
+	slt* w = find(sl, 9);
+	if (w)
+	{
+		delete(w);
+	}
+	print(sl);
+	destroy(sl);
+	return 0;
+}
