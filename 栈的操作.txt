@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include <stdbool.h>
+typedef int zheng;
+struct haha
+{
+	zheng* arr;
+	zheng top;
+	int capacity;
+};
+typedef struct haha slt;
+void init(slt* p)
+{
+	assert(p);
+	p->arr = (zheng*)malloc(sizeof(zheng) * 4);
+	if (p->arr == NULL)
+	{
+		printf("malloc fail");
+	}
+	p->capacity = 4;
+	p->top = 0;
+}
+void destroy(slt* p)
+{
+	assert(p);
+	free(p->arr);
+	p->arr = NULL;
+	p->capacity = p->top = 0;
+}
+void stackpush(slt* p,int a)
+{
+	assert(p);
+	if (p->capacity == p->top)
+	{
+		zheng* new = (zheng*)realloc(p->arr, p->capacity * 2*sizeof(zheng));
+		if (new == NULL)
+		{
+			printf("calloc fail");
+		}
+		else
+		{
+			p->arr = new;
+			p->capacity *= 2;
+		}
+	}
+	p->arr[p->top] = a;
+	p->top++;
+}
+zheng stacktop(slt* p)
+{
+	assert(p);
+	assert(p->top>0);
+	return p->arr[p->top - 1];
+}
+void stackpop(slt* p)
+{
+	assert(p);
+	assert(p->top > 0);
+	p->top--;
+}
+int stacksize(slt* p)
+{
+	assert(p);
+	return p->top;
+}
+bool stackempty(slt* p)
+{
+	assert(p);
+	return p->top == 0;
+}
+int main()
+{
+	slt k;
+	init(&k);
+	stackpush(&k,8);
+	stackpush(&k, 7);
+	/*printf("%d ", stacktop(&k));
+	stackpop(&k);*/
+	/*printf("%d ", stacktop(&k));*/
+	while (!stackempty(&k))
+	{
+		printf("%d ", stacktop(&k));
+		stackpop(&k);
+	}
+	destroy(&k);
+	return 0;
+}
