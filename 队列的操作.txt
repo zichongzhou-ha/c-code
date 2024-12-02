@@ -1,0 +1,119 @@
+#include<stdbool.h>
+#include<stdio.h>
+typedef int zheng;
+typedef struct haha
+{
+	struct haha* next;
+	zheng a;
+}kk;
+typedef struct hehe
+{
+	kk* first;
+	kk* final;
+}slt;
+void init(slt* p)
+{
+	assert(p);
+	p->final = p->first = NULL;
+}
+void destroy(slt* p)
+{
+	assert(p);
+	kk* test = p->first;
+	while (test)
+	{
+		kk* ttest = test->next;
+		free(test);
+		test = ttest;
+	}
+	p->final = p->first = NULL;
+}
+void push(slt* p, zheng x)
+{
+	assert(p);
+	kk* new = (kk*)malloc(sizeof(kk));
+	if (new == NULL)
+	{
+		printf("malloc fail");
+	}
+	new->a = x;
+	new->next = NULL;
+	if (p->final == NULL)
+	{
+		p->final = p->first = new;
+	}
+	else
+	{
+		p->final->next = new;
+		p->final = new;
+	}
+}
+void pop(slt* p)
+{
+	assert(p);
+	assert(p->first);
+	if (p->first->next == NULL)
+	{
+		free(p->first);
+		p->final = p->first = NULL;
+	}
+	else
+	{
+		kk* test = p->first->next;
+		free(p->first);
+		p->first = test;
+	}
+}
+zheng printfront(slt* p)
+{
+	assert(p);
+	assert(p->first);
+	return p->first->a;
+}
+zheng printback(slt* p)
+{
+	assert(p);
+	assert(p->final);
+	return p->final->a;
+}
+int countsum(slt* p)
+{
+	assert(p);
+	int sum = 0;
+	kk* test = p->first;
+	while (test)
+	{
+		sum++;
+		test = test->next;
+	}
+	return sum;
+}
+bool empty(slt* p)
+{
+	assert(p);
+	return p->first == NULL;
+}
+int main()
+{
+	slt q;
+	init(&q);
+	push(&q, 6);
+	push(&q, 5);
+	printf("%d ",printfront(&q));
+	printf("%d ", printback(&q));
+	printf("\n");
+	while (!empty(&q))
+	{
+		printf("%d ", printfront(&q));
+		pop(&q);
+	}
+	destroy(&q);
+}
+
+
+
+
+
+
+
+
