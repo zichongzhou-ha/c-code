@@ -1,0 +1,40 @@
+#include<stdio.h>
+void haha(int left,int right,int *p)
+{
+    while(left<right)
+    {
+        int tmp=p[left];
+        p[left]=p[right];
+        p[right]=tmp;
+        left++;
+        right--;
+    }
+}
+int main()
+{
+    int n,m,i,k;
+    int arr[1002];
+    scanf("%d %d",&n,&m);
+    int count=0;
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    
+    for(i=0;i<m;i++)
+    {
+        scanf("%d",&k);
+        k%=n;
+        haha(0,k-1,&arr);
+        haha(k,n-1,&arr);
+        haha(0,n-1,&arr);
+        if(arr[0]==1)
+        {
+            count++;
+            arr[0]=0;
+        }
+        
+    }
+    printf("%d",count);
+    return 0;
+}
